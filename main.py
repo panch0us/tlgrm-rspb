@@ -46,16 +46,16 @@ def inline_caps(update, context):
     )
     context.bot.answer_inline_query(update.inline_query.id, results)
 
-# функция обработки не распознных команд
-def unknown(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id,
-                             text="Данная команда мне неизвестна")
-
 
 # функция обработки команды '/veron'
 def veron(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id,
-                             text="Привет Вероника!")
+                             text="Привет, Вероника! Если нужна помощь - попроси мужа =)")
+
+# функция обработки не распознных команд
+def unknown(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id,
+                             text="Данная команда мне неизвестна")
 
 # обработчик команды '/start'
 start_handler = CommandHandler('start', start)
@@ -73,13 +73,13 @@ dispatcher.add_handler(caps_handler)
 inline_caps_handler = InlineQueryHandler(inline_caps)
 dispatcher.add_handler(inline_caps_handler)
 
-# обработчик нераспознных команд
-unknown_handler = MessageHandler(Filters.command, unknown)
-dispatcher.add_handler(unknown_handler)
-
 # обработчик команды '/veron'
 veron_handler = CommandHandler('veron', veron)
 dispatcher.add_handler(veron_handler)
+
+# обработчик нераспознных команд (ДОЛЖЕН БЫТЬ ПОСЛЕДНИМ, следующие не будут работать)
+unknown_handler = MessageHandler(Filters.command, unknown)
+dispatcher.add_handler(unknown_handler)
 
 # запуск прослушивания сообщений
 updater.start_polling()
