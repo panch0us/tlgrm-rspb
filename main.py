@@ -10,11 +10,12 @@ dispatcher = updater.dispatcher
 # функция обработки команды '/start'
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id,
-                             text="I'm a bot, please talk to me!")
+                             text="Бонжур, я тестовый бот для panch0us'a и его друзей")
+
 
 # функция обработки текстовых сообщений
 def echo(update, context):
-    text = 'ECHO: ' + update.message.text
+    text = 'Повтор сообщения: ' + update.message.text
     context.bot.send_message(chat_id=update.effective_chat.id,
                              text=text)
 
@@ -48,7 +49,13 @@ def inline_caps(update, context):
 # функция обработки не распознных команд
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id,
-                             text="Sorry, I didn't understand that command.")
+                             text="Данная команда мне неизвестна")
+
+
+# функция обработки команды '/veron'
+def veron(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id,
+                             text="Привет Вероника!")
 
 # обработчик команды '/start'
 start_handler = CommandHandler('start', start)
@@ -66,9 +73,12 @@ dispatcher.add_handler(caps_handler)
 inline_caps_handler = InlineQueryHandler(inline_caps)
 dispatcher.add_handler(inline_caps_handler)
 
-# обработчик не распознных команд
+# обработчик нераспознных команд
 unknown_handler = MessageHandler(Filters.command, unknown)
 dispatcher.add_handler(unknown_handler)
+
+veron_handler = CommandHandler('veron', veron)
+dispatcher.add_handler(veron_handler)
 
 # запуск прослушивания сообщений
 updater.start_polling()
