@@ -77,6 +77,7 @@ dispatcher.add_handler(inline_caps_handler)
 unknown_handler = MessageHandler(Filters.command, unknown)
 dispatcher.add_handler(unknown_handler)
 
+# обработчик команды '/veron'
 veron_handler = CommandHandler('veron', veron)
 dispatcher.add_handler(veron_handler)
 
